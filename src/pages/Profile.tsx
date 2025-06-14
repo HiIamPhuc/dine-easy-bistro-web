@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
+import AuthModal from '@/components/auth/AuthModal';
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -22,6 +23,7 @@ const Profile = () => {
   });
 
   const [isEditing, setIsEditing] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
     setProfile(prev => ({ ...prev, [field]: value }));
@@ -215,6 +217,13 @@ const Profile = () => {
                   <Button variant="outline" className="w-full" asChild>
                     <a href="/orders">View Order History</a>
                   </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full"
+                    onClick={() => setShowPasswordModal(true)}
+                  >
+                    Change Password
+                  </Button>
                   <Button variant="outline" className="w-full">
                     Download Receipts
                   </Button>
@@ -242,6 +251,12 @@ const Profile = () => {
       </main>
       
       <Footer />
+
+      <AuthModal
+        isOpen={showPasswordModal}
+        onClose={() => setShowPasswordModal(false)}
+        initialMode="change-password"
+      />
     </div>
   );
 };
